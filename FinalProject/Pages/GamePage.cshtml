@@ -2,4 +2,39 @@
 @model FinalProject.Pages.GamePageModel
 @{
 }
+<head>
+    <script src="/js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
 <h1>GAME PAGE</h1>
+<center>
+    <body>
+        <script type="text/paperscript" canvas="myCanvas">
+            var myPath;
+
+            function onMouseDown(event) {
+                myPath = new Path();
+                myPath.strokeColor = 'black';
+            }
+
+            function onMouseDrag(event) {
+                myPath.add(event.point);
+            }
+
+            function onMouseUp(event) {
+                var myCircle = new Path.Circle({
+                    center: event.point,
+                    radius: 10
+                });
+                myCircle.strokeColor = 'black';
+                myCircle.fillColor = 'white';
+            }
+        </script>
+        <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+        <script>drawGameBoard();</script>
+    </body>
+</center>
+
+@section Scripts{
+    
+}
