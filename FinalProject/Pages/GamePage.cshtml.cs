@@ -1,45 +1,86 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+
 
 namespace FinalProject.Pages
 {
     public class GamePageModel : PageModel
     {
-        public void OnGet()
-        {
-		}
 
-		/**************VARIABLES***********/
-		enum Dice
+        ///**************VARIABLES***********/
+
+        List<string[]> DieList = new List<string[]>
         {
-			DIE0, //{A, A, E, E, G, N};
-			DIE1, //{A B B J O O};
-			DIE2, //{A C H O P S};
-			DIE3, //{A F F K P S};
-			DIE4, //{A O O T T W};
-			DIE5, //{C I M O T U};
-			DIE6, //{D E I L R X};
-			DIE7, //{D E L R V Y};
-			DIE8, //{D I S T T Y};
-			DIE9, //{E E G H N W};
-			DIE10, //{ E E I N S U};
-			DIE11, //{ E H R T V W};
-			DIE12, //{ E I O S S T};
-			DIE13, //{ E L R T T Y};
-			DIE14, //{ H I M N U Qu};
-			DIE15  //{ H L N N R Z };
-		}
-		public int score = 0;
+            new string[] { "A", "A", "E", "E", "G", "N" },
+            new string[] { "A", "B", "B", "J", "O", "O" },
+            new string[] { "A", "C", "H", "O", "P", "S" },
+            new string[] { "A", "F", "F", "K", "P", "S" },
+            new string[] { "A", "O", "O", "T", "T", "W" },
+            new string[] { "C", "I", "M", "O", "T", "U" },
+            new string[] { "D", "E", "I", "L", "R", "X" },
+            new string[] { "D", "E", "L", "R", "V", "Y" },
+            new string[] { "D", "I", "S", "T", "T", "Y" },
+            new string[] { "E", "E", "G", "H", "N", "W" },
+            new string[] { "E", "E", "I", "N", "S", "U" },
+            new string[] { "E", "H", "R", "T", "V", "W" },
+            new string[] { "E", "I", "O", "S", "S", "T" },
+            new string[] { "E", "L", "R", "T", "T", "Y" },
+            new string[] { "H", "I", "M", "N", "U", "Qu" },
+            new string[] { "H", "L", "N", "N", "R", "Z" },
+        };
+
+        List<string> ChosenWords = new List<string>();//keep track of words the user has already chosen
+        public string[,] boggleBoard = new string[4,4];
+        public string[] userInputs; //might have to be an array of pointers? so we can point to the location in the boggleBoard
+
+        //Some of these vars might need to be moved inside of functions
+        public string userWord = "";
+        public int score = 0;
 		public int timer = 0;
 		public int letterCount;
-		public string[] userInputs; //might have to be an array of pointers? so we can point to the location in the boggleBoard
-		public string[,] boggleBoard = new string[4,4];
+
+        //*******Functions:
+        public void OnGet()
+        {
+            PopulateBoard();
+        }
+
+        //function to loop through the board and load a rolled die into each slot
+        public void PopulateBoard()
+        {
+            int availableDice = 16;
+            //go through each square in the boggle board
+            for (int i = 0; i < 4; i++ )
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    boggleBoard[i,j] = RollDie(availableDice);
+                    availableDice--;
+                }
+            }
+        }
+
+        public string RollDie(int dice)
+        {
+            string letter = "";
+            Random rnd = new Random();
+            int die = rnd.Next(dice);
+            int face = rnd.Next(5);
+
+            letter = DieList[die][face];
+
+            DieList.RemoveAt(die);//remove the die that was just rolled
+
+            return letter.ToUpper();
+        }
 
 
-
-
-
-		//*******Functions:
+		//string function to get the array location that was clicked on and see if the previous letter is next to it or already selected; returns an error message if not found or confirmation if found and increases score
+        //function to see if a word was already chosen
+		//void function to turn completed user input into a string and send it off to the dictionary API to be checked
+		//void function to handle scoring(1 point per letter)
+		//void function to handle the timer
 
 
 
