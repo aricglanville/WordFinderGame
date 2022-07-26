@@ -65,7 +65,11 @@
                 
                 //TODO: add some logic so we can only select squares that are next to other selected squares. This will get rid of the need to check after the word submitted.
 
-                //first check to see if squre is already selected
+                //first check to see if selected array is empty or not
+                //if it is empty then we can turn the square green and add it to the array
+
+                //if selected array is not empty then 
+                //next check to see if square is already selected
                 for (var i = 0; i < selected.length; i++) {
                     //if square is already selected
                     if (selected[i][0] == indexOfX && selected[i][1] == indexOfY) {
@@ -77,12 +81,17 @@
                         return;
                     }
                 }
-                
-                //if square wasnt found 
+
+                //now check to see if square is touching the last selected square
+                //if it is then we can turn it greeen and add it to the array
+                //if it is not touching then we need to do absolutely nothing
+
+
+                //if square wasnt found and is touching 
                 ctx.fillStyle = "green";
                 ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
                 selected.push([indexOfX, indexOfY]);
-                
+
             }
         }
  
