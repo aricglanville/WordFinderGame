@@ -45,3 +45,7 @@ td.account-info {
     transform: translate(-50%, -50%);
     text-align: center
 }
+
+#canvas {
+    border: 1px solid black;
+}

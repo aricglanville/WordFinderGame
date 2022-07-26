@@ -7,35 +7,84 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<center>
-    <body>
+<body onload="drawGrid()">
+    <center>
+
         <h1>GAME PAGE</h1>
-        <script type="text/paperscript" canvas="myCanvas">
-            var myPath;
 
-            function onMouseDown(event) {
-                myPath = new Path();
-                myPath.strokeColor = 'black';
-            }
+        <canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
 
-            function onMouseDrag(event) {
-                myPath.add(event.point);
-            }
 
-            function onMouseUp(event) {
-                var myCircle = new Path.Circle({
-                    center: event.point,
-                    radius: 10
-                });
-                myCircle.strokeColor = 'black';
-                myCircle.fillColor = 'white';
-            }
-        </script>
-        <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
-        <script>drawGameBoard();</script>
-    </body>
-</center>
+    </center>
+</body>
 
 @section Scripts{
     
+    <script type="text/javascript">
+        
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var boxHeight = 125;
+        var boxWidth = 125;
+        var canvas_X = canvas.width;
+        var canvas_Y = canvas.height;
+        var selected = [];
+
+        canvas.addEventListener('click', on_canvas_click, false);
+
+        // Drawing the grid
+        function drawGrid(){
+            
+            for (var x = 0; x <= canvas_X; x += boxHeight) {
+                strokeLine(ctx, x, 0, x, canvas_Y, 'black');
+            }
+            
+            for (var y = 0; y <= canvas_Y; y += boxWidth) {
+                strokeLine(ctx, 0, y, canvas_X, y, 'black');
+            }
+
+        }
+
+
+        function strokeLine(ctx, x0, y0, x1, y1, color) {
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x1, y1);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function on_canvas_click(ev) {
+            var x = ev.pageX - canvas.offsetLeft;
+            var y = ev.pageY - canvas.offsetTop;
+            
+            if (y>= 0 && y <= y+boxHeight ) {    
+                var indexOfX = Math.floor(x/boxWidth);
+                var indexOfY = Math.floor(y/boxHeight);
+                
+                //TODO: add some logic so we can only select squares that are next to other selected squares. This will get rid of the need to check after the word submitted.
+
+                //first check to see if squre is already selected
+                for (var i = 0; i < selected.length; i++) {
+                    //if square is already selected
+                    if (selected[i][0] == indexOfX && selected[i][1] == indexOfY) {
+                        ctx.fillStyle = "white";
+                        drawGrid();
+                        ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
+                        selected[i][0] = -1;
+                        selected[i][1] = -1;
+                        return;
+                    }
+                }
+                
+                //if square wasnt found 
+                ctx.fillStyle = "green";
+                ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
+                selected.push([indexOfX, indexOfY]);
+                
+            }
+        }
+ 
+    </script>
 }

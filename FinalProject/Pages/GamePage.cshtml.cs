@@ -8,7 +8,7 @@ namespace FinalProject.Pages
     public class GamePageModel : PageModel
     {
 
-        ///**************VARIABLES***********/
+        /**************VARIABLES***********/
 
         List<string[]> DieList = new List<string[]>
         {
@@ -26,12 +26,13 @@ namespace FinalProject.Pages
             new string[] { "E", "H", "R", "T", "V", "W" },
             new string[] { "E", "I", "O", "S", "S", "T" },
             new string[] { "E", "L", "R", "T", "T", "Y" },
-            new string[] { "H", "I", "M", "N", "U", "Qu" },
+            new string[] { "H", "I", "M", "N", "U", "Qu"},
             new string[] { "H", "L", "N", "N", "R", "Z" },
         };
 
         List<string> ChosenWords = new List<string>();//keep track of words the user has already chosen
         public string[,] boggleBoard = new string[4,4];
+
         public string[] userInputs; //might have to be an array of pointers? so we can point to the location in the boggleBoard
 
         //Some of these vars might need to be moved inside of functions
@@ -40,7 +41,8 @@ namespace FinalProject.Pages
 		public int timer = 0;
 		public int letterCount;
 
-        //*******Functions:
+
+        /*******************************Functions****************************/
         public void OnGet()
         {
             PopulateBoard();
@@ -77,10 +79,14 @@ namespace FinalProject.Pages
 
 
 		//string function to get the array location that was clicked on and see if the previous letter is next to it or already selected; returns an error message if not found or confirmation if found and increases score
-        //function to see if a word was already chosen
-		//void function to turn completed user input into a string and send it off to the dictionary API to be checked
-		//void function to handle scoring(1 point per letter)
-		//void function to handle the timer
+        
+        //void function to see if a word was already chosen
+		
+        //void function to turn completed user input into a string and send it off to the dictionary API to be checked
+		
+        //void function to handle scoring(1 point per letter)
+		
+        //void function to handle the timer
 
 
 
