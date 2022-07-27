@@ -4,96 +4,118 @@
 }
 <head>
     <script src="/js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<body onload="drawGrid()">
+<!--<body onload="drawGrid()">-->
+<body>
     <center>
 
         <h1>GAME PAGE</h1>
 
-        <canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
-
-
+        <div class="grid-container">
+            <div class="grid-item">1</div>
+            <div class="grid-item">2</div>
+            <div class="grid-item">3</div>
+            <div class="grid-item">4</div>
+            <div class="grid-item">5</div>
+            <div class="grid-item">6</div>
+            <div class="grid-item">7</div>
+            <div class="grid-item">8</div>
+            <div class="grid-item">9</div>
+            <div class="grid-item">10</div>
+            <div class="grid-item">11</div>
+            <div class="grid-item">12</div>
+            <div class="grid-item">13</div>
+            <div class="grid-item">14</div>
+            <div class="grid-item">15</div>
+            <div class="grid-item">16</div>
+        </div>
     </center>
 </body>
 
 @section Scripts{
-    
-    <script type="text/javascript">
-        
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        var boxHeight = 125;
-        var boxWidth = 125;
-        var canvas_X = canvas.width;
-        var canvas_Y = canvas.height;
-        var selected = [];
-
-        canvas.addEventListener('click', on_canvas_click, false);
-
-        // Drawing the grid
-        function drawGrid(){
-            
-            for (var x = 0; x <= canvas_X; x += boxHeight) {
-                strokeLine(ctx, x, 0, x, canvas_Y, 'black');
-            }
-            
-            for (var y = 0; y <= canvas_Y; y += boxWidth) {
-                strokeLine(ctx, 0, y, canvas_X, y, 'black');
-            }
-
-        }
 
 
-        function strokeLine(ctx, x0, y0, x1, y1, color) {
-            ctx.beginPath();
-            ctx.strokeStyle = color;
-            ctx.moveTo(x0, y0);
-            ctx.lineTo(x1, y1);
-            ctx.stroke();
-            ctx.closePath();
-        }
 
-        function on_canvas_click(ev) {
-            var x = ev.pageX - canvas.offsetLeft;
-            var y = ev.pageY - canvas.offsetTop;
-            
-            if (y>= 0 && y <= y+boxHeight ) {    
-                var indexOfX = Math.floor(x/boxWidth);
-                var indexOfY = Math.floor(y/boxHeight);
-                
-                //TODO: add some logic so we can only select squares that are next to other selected squares. This will get rid of the need to check after the word submitted.
+    @*<script type="text/javascript">
 
-                //first check to see if selected array is empty or not
-                //if it is empty then we can turn the square green and add it to the array
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var boxHeight = 125;
+            var boxWidth = 125;
+            var canvas_X = canvas.width;
+            var canvas_Y = canvas.height;
+            var selected = [];
 
-                //if selected array is not empty then 
-                //next check to see if square is already selected
-                for (var i = 0; i < selected.length; i++) {
-                    //if square is already selected
-                    if (selected[i][0] == indexOfX && selected[i][1] == indexOfY) {
-                        ctx.fillStyle = "white";
-                        drawGrid();
-                        ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
-                        selected[i][0] = -1;
-                        selected[i][1] = -1;
-                        return;
-                    }
+            canvas.addEventListener('click', on_canvas_click, false);
+
+            // Drawing the grid
+            function drawGrid(){
+
+                for (var x = 0; x <= canvas_X; x += boxHeight) {
+                    strokeLine(ctx, x, 0, x, canvas_Y, 'black');
                 }
 
-                //now check to see if square is touching the last selected square
-                //if it is then we can turn it greeen and add it to the array
-                //if it is not touching then we need to do absolutely nothing
-
-
-                //if square wasnt found and is touching 
-                ctx.fillStyle = "green";
-                ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
-                selected.push([indexOfX, indexOfY]);
+                for (var y = 0; y <= canvas_Y; y += boxWidth) {
+                    strokeLine(ctx, 0, y, canvas_X, y, 'black');
+                }
 
             }
-        }
- 
-    </script>
+
+
+            function strokeLine(ctx, x0, y0, x1, y1, color) {
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.stroke();
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("Test", x1/x0, y1/y0);
+                ctx.closePath();
+            }
+
+            function on_canvas_click(ev) {
+                var x = ev.pageX - canvas.offsetLeft;
+                var y = ev.pageY - canvas.offsetTop;
+
+                if (y>= 0 && y <= y+boxHeight ) {
+                    var indexOfX = Math.floor(x/boxWidth);
+                    var indexOfY = Math.floor(y/boxHeight);
+
+                    //TODO: add some logic so we can only select squares that are next to other selected squares. This will get rid of the need to check after the word submitted.
+
+                    //first check to see if selected array is empty or not
+                    //if it is empty then we can turn the square green and add it to the array
+
+                    //if selected array is not empty then
+                    //next check to see if square is already selected
+                    for (var i = 0; i < selected.length; i++) {
+                        //if square is already selected
+                        if (selected[i][0] == indexOfX && selected[i][1] == indexOfY) {
+                            ctx.fillStyle = "white";
+                            drawGrid();
+                            ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
+                            selected[i][0] = -1;
+                            selected[i][1] = -1;
+                            return;
+                        }
+                    }
+
+                    //now check to see if square is touching the last selected square
+                    //if it is then we can turn it greeen and add it to the array
+                    //if it is not touching then we need to do absolutely nothing
+
+
+                    //if square wasnt found and is touching
+                    ctx.fillStyle = "green";
+                    ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
+                    selected.push([indexOfX, indexOfY]);
+
+                }
+            }
+
+        </script>*@
 }
