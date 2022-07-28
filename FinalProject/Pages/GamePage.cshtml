@@ -37,6 +37,17 @@
 
 @section Scripts{
 
+<script>
+    $(function () {
+        $(document).on('click', '.grid-item', function () {
+            var $this = $(this);
+            $this.css({
+                'background-color': 'green'
+            });
+            alert($this.text());
+        });
+    });
+</script>
 
 
     @*<script type="text/javascript">
