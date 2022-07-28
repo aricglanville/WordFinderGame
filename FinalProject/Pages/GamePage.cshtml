@@ -16,28 +16,51 @@
         <h1>GAME PAGE</h1>
 
         <div class="grid-container">
-            <div class="grid-item">1</div>
-            <div class="grid-item">2</div>
-            <div class="grid-item">3</div>
-            <div class="grid-item">4</div>
-            <div class="grid-item">5</div>
-            <div class="grid-item">6</div>
-            <div class="grid-item">7</div>
-            <div class="grid-item">8</div>
-            <div class="grid-item">9</div>
-            <div class="grid-item">10</div>
-            <div class="grid-item">11</div>
-            <div class="grid-item">12</div>
-            <div class="grid-item">13</div>
-            <div class="grid-item">14</div>
-            <div class="grid-item">15</div>
-            <div class="grid-item">16</div>
+            <div id="0" class="grid-item">1</div>
+            <div id="1" class="grid-item">2</div>
+            <div id="2" class="grid-item">3</div>
+            <div id="3" class="grid-item">4</div>
+            <div id="4" class="grid-item">5</div>
+            <div id="5" class="grid-item">6</div>
+            <div id="6" class="grid-item">7</div>
+            <div id="7" class="grid-item">8</div>
+            <div id="8" class="grid-item">9</div>
+            <div id="9" class="grid-item">10</div>
+            <div id="10" class="grid-item">11</div>
+            <div id="11" class="grid-item">12</div>
+            <div id="12" class="grid-item">13</div>
+            <div id="13" class="grid-item">14</div>
+            <div id="14" class="grid-item">15</div>
+            <div id="15" class="grid-item">16</div>
         </div>
     </center>
 </body>
 
 @section Scripts{
+<script>
+    var clickedBoxes = [];
+</script>
+<script>
+    $(function () {
+        $(document).on('click', '.grid-item', function () {
+            var $this = $(this);
+            var id = $(this).attr('id');
 
+            if (clickedBoxes.includes(id)) {
+                alert("Can't click this box!");
+            }
+            else {
+                clickedBoxes.push(id);
+
+                $this.css({
+                    'background-color': 'green'
+                });
+                alert($this.text());
+                alert(id);
+            }
+        });
+    });
+</script>
 
 
     @*<script type="text/javascript">
