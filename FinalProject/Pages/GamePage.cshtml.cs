@@ -37,7 +37,7 @@ namespace FinalProject.Pages
         };
 
         List<string> ChosenWords = new List<string>();//keep track of words the user has already chosen
-        public string[,] boggleBoard = new string[4,4];
+        public string[] boggleBoard = new string[16];
 
         public string[] userInputs; //might have to be an array of pointers? so we can point to the location in the boggleBoard
 
@@ -63,13 +63,10 @@ namespace FinalProject.Pages
         {
             int availableDice = 16;
             //go through each square in the boggle board
-            for (int i = 0; i < 4; i++ )
+            for (int i = 0; i < boggleBoard.Length; i++ )
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    boggleBoard[i,j] = RollDie(availableDice);
+                    boggleBoard[i] = RollDie(availableDice);
                     availableDice--;
-                }
             }
         }
 
@@ -88,7 +85,8 @@ namespace FinalProject.Pages
         }
 
 
-		//string function to get the array location that was clicked on and see if the previous letter is next to it or already selected; returns an error message if not found or confirmation if found and increases score
+		//string function to check selected box
+            //take the box 
         
         //void function to see if a word was already chosen
 		

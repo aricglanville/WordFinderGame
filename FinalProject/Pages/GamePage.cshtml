@@ -8,14 +8,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
+<<<<<<< Updated upstream
 <!--<body onload="drawGrid()">-->
 <body>
     <p>@Model.realWord</p>
     <center>
+=======
+>>>>>>> Stashed changes
 
+<body onload="FillGrid()">
+    <center>
         <h1>GAME PAGE</h1>
 
         <div class="grid-container">
+<<<<<<< Updated upstream
             <div id="0" class="grid-item">1</div>
             <div id="1" class="grid-item">2</div>
             <div id="2" class="grid-item">3</div>
@@ -32,11 +38,31 @@
             <div id="13" class="grid-item">14</div>
             <div id="14" class="grid-item">15</div>
             <div id="15" class="grid-item">16</div>
+=======
+            <div id="0"  class="grid-item">0 </div>
+            <div id="1"  class="grid-item">1 </div>
+            <div id="2"  class="grid-item">2 </div>
+            <div id="3"  class="grid-item">3 </div>
+            <div id="4"  class="grid-item">4 </div>
+            <div id="5"  class="grid-item">5 </div>
+            <div id="6"  class="grid-item">6 </div>
+            <div id="7"  class="grid-item">7 </div>
+            <div id="8"  class="grid-item">8 </div>
+            <div id="9"  class="grid-item">9 </div>
+            <div id="10" class="grid-item">10</div>
+            <div id="11" class="grid-item">11</div>
+            <div id="12" class="grid-item">12</div>
+            <div id="13" class="grid-item">13</div>
+            <div id="14" class="grid-item">14</div>
+            <div id="15" class="grid-item">15</div>
+            
+>>>>>>> Stashed changes
         </div>
     </center>
 </body>
 
 @section Scripts{
+<<<<<<< Updated upstream
 <script>
     var clickedBoxes = [];
 </script>
@@ -86,60 +112,24 @@
                     strokeLine(ctx, 0, y, canvas_X, y, 'black');
                 }
 
+=======
+    <script type="text/javascript">
+        
+        function FillGrid() {
+            var board = [];
+
+            @foreach (var d in Model.boggleBoard)
+            {
+                @:board.push("@d");
+>>>>>>> Stashed changes
             }
 
+            var squares = document.getElementsByClassName("grid-item");
 
-            function strokeLine(ctx, x0, y0, x1, y1, color) {
-                ctx.beginPath();
-                ctx.strokeStyle = color;
-                ctx.moveTo(x0, y0);
-                ctx.lineTo(x1, y1);
-                ctx.stroke();
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText("Test", x1/x0, y1/y0);
-                ctx.closePath();
+            for (var i = 0; i < board.length; i++){
+                squares[i].innerHTML = board[i];
             }
-
-            function on_canvas_click(ev) {
-                var x = ev.pageX - canvas.offsetLeft;
-                var y = ev.pageY - canvas.offsetTop;
-
-                if (y>= 0 && y <= y+boxHeight ) {
-                    var indexOfX = Math.floor(x/boxWidth);
-                    var indexOfY = Math.floor(y/boxHeight);
-
-                    //TODO: add some logic so we can only select squares that are next to other selected squares. This will get rid of the need to check after the word submitted.
-
-                    //first check to see if selected array is empty or not
-                    //if it is empty then we can turn the square green and add it to the array
-
-                    //if selected array is not empty then
-                    //next check to see if square is already selected
-                    for (var i = 0; i < selected.length; i++) {
-                        //if square is already selected
-                        if (selected[i][0] == indexOfX && selected[i][1] == indexOfY) {
-                            ctx.fillStyle = "white";
-                            drawGrid();
-                            ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
-                            selected[i][0] = -1;
-                            selected[i][1] = -1;
-                            return;
-                        }
-                    }
-
-                    //now check to see if square is touching the last selected square
-                    //if it is then we can turn it greeen and add it to the array
-                    //if it is not touching then we need to do absolutely nothing
-
-
-                    //if square wasnt found and is touching
-                    ctx.fillStyle = "green";
-                    ctx.fillRect(boxWidth * indexOfX, boxHeight * indexOfY, boxWidth, boxHeight);
-                    selected.push([indexOfX, indexOfY]);
-
-                }
-            }
-
-        </script>*@
+        }
+    
+    </script>
 }
