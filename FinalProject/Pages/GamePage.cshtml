@@ -8,37 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<<<<<<< Updated upstream
-<!--<body onload="drawGrid()">-->
-<body>
-    <p>@Model.realWord</p>
-    <center>
-=======
->>>>>>> Stashed changes
-
 <body onload="FillGrid()">
     <center>
         <h1>GAME PAGE</h1>
-
         <div class="grid-container">
-<<<<<<< Updated upstream
-            <div id="0" class="grid-item">1</div>
-            <div id="1" class="grid-item">2</div>
-            <div id="2" class="grid-item">3</div>
-            <div id="3" class="grid-item">4</div>
-            <div id="4" class="grid-item">5</div>
-            <div id="5" class="grid-item">6</div>
-            <div id="6" class="grid-item">7</div>
-            <div id="7" class="grid-item">8</div>
-            <div id="8" class="grid-item">9</div>
-            <div id="9" class="grid-item">10</div>
-            <div id="10" class="grid-item">11</div>
-            <div id="11" class="grid-item">12</div>
-            <div id="12" class="grid-item">13</div>
-            <div id="13" class="grid-item">14</div>
-            <div id="14" class="grid-item">15</div>
-            <div id="15" class="grid-item">16</div>
-=======
             <div id="0"  class="grid-item">0 </div>
             <div id="1"  class="grid-item">1 </div>
             <div id="2"  class="grid-item">2 </div>
@@ -55,81 +28,56 @@
             <div id="13" class="grid-item">13</div>
             <div id="14" class="grid-item">14</div>
             <div id="15" class="grid-item">15</div>
-            
->>>>>>> Stashed changes
         </div>
     </center>
 </body>
 
 @section Scripts{
-<<<<<<< Updated upstream
-<script>
-    var clickedBoxes = [];
-</script>
-<script>
-    $(function () {
-        $(document).on('click', '.grid-item', function () {
-            var $this = $(this);
-            var id = $(this).attr('id');
 
-            if (clickedBoxes.includes(id)) {
-                alert("Can't click this box!");
-            }
-            else {
-                clickedBoxes.push(id);
+        <script>
+            var clickedBoxes = [];
+        </script>
 
-                $this.css({
-                    'background-color': 'green'
+        <script>
+            $(function () {
+                $(document).on('click', '.grid-item', function () {
+                    var $this = $(this);
+                    var id = $(this).attr('id');
+
+                    if (clickedBoxes.includes(id)) {
+                        alert("Can't click this box!");
+                    }
+                    else {
+                        clickedBoxes.push(id);
+
+                        $this.css({
+                            'background-color': 'green'
+                        });
+                        alert($this.text());
+                        alert(id);
+                    }
                 });
-                alert($this.text());
-                alert(id);
-            }
-        });
-    });
-</script>
+            });
+        </script>
 
 
-    @*<script type="text/javascript">
-
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
-            var boxHeight = 125;
-            var boxWidth = 125;
-            var canvas_X = canvas.width;
-            var canvas_Y = canvas.height;
-            var selected = [];
-
-            canvas.addEventListener('click', on_canvas_click, false);
-
-            // Drawing the grid
-            function drawGrid(){
-
-                for (var x = 0; x <= canvas_X; x += boxHeight) {
-                    strokeLine(ctx, x, 0, x, canvas_Y, 'black');
-                }
-
-                for (var y = 0; y <= canvas_Y; y += boxWidth) {
-                    strokeLine(ctx, 0, y, canvas_X, y, 'black');
-                }
-
-=======
-    <script type="text/javascript">
+        <script type="text/javascript">
         
-        function FillGrid() {
-            var board = [];
+            function FillGrid() {
+                var board = [];
 
-            @foreach (var d in Model.boggleBoard)
-            {
-                @:board.push("@d");
->>>>>>> Stashed changes
+                @foreach (var d in Model.boggleBoard)
+                {
+                    @:board.push("@d");
+
+                }
+
+                var squares = document.getElementsByClassName("grid-item");
+
+                for (var i = 0; i < board.length; i++){
+                    squares[i].innerHTML = board[i];
+                }
             }
-
-            var squares = document.getElementsByClassName("grid-item");
-
-            for (var i = 0; i < board.length; i++){
-                squares[i].innerHTML = board[i];
-            }
-        }
     
-    </script>
+        </script>
 }
