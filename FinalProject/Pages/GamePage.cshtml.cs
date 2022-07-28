@@ -2,11 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 
+using FinalProject.Services;
+
 
 namespace FinalProject.Pages
 {
     public class GamePageModel : PageModel
     {
+
+        public ApiClass apiClass { get; set; }
+
+        public Boolean realWord;
 
         /**************VARIABLES***********/
 
@@ -46,6 +52,10 @@ namespace FinalProject.Pages
         public void OnGet()
         {
             PopulateBoard();
+
+            apiClass = new ApiClass("asdf");
+            realWord = apiClass.check;
+
         }
 
         //function to loop through the board and load a rolled die into each slot
