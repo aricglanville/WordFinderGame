@@ -37,15 +37,10 @@ namespace FinalProject.Pages
         };
 
         List<string> ChosenWords = new List<string>();//keep track of words the user has already chosen
+        
         public string[] boggleBoard = new string[16];
 
-        public string[] userInputs; //might have to be an array of pointers? so we can point to the location in the boggleBoard
 
-        //Some of these vars might need to be moved inside of functions
-        public string userWord = "";
-        public int score = 0;
-		public int timer = 0;
-		public int letterCount;
 
 
         /*******************************Functions****************************/
@@ -83,21 +78,5 @@ namespace FinalProject.Pages
 
             return letter.ToUpper();
         }
-
-
-		//string function to check selected box
-            //take the box 
-        
-        //void function to see if a word was already chosen
-		
-        //void function to turn completed user input into a string and send it off to the dictionary API to be checked
-		
-        //void function to handle scoring(1 point per letter)
-		
-        //void function to handle the timer
-
-
-
-
 	}
 }
