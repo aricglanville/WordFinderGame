@@ -29,6 +29,10 @@
             <div id="14" class="grid-item">14</div>
             <div id="15" class="grid-item">15</div>
         </div>
+        <form>
+            <input type="button" value="Submit" onclick="SubmitWord()"/> <br/><br/>
+            <input type="button" value="Clear" onclick="ClearWord()"/>
+        </form>
      </center>
 </body>
 
@@ -38,7 +42,7 @@
             var clickedBoxes = [];
             var selectedLetters = "";
             var numSelected = 0;
-            var squareCheck = [
+            const squareCheck = [
                 /*0*/[1, 4, 5],
                 /*1*/[0, 2, 4, 5, 6],
                 /*2*/[1, 3, 5, 6, 7],
@@ -84,9 +88,21 @@
                             'background-color': 'green'
                         });
                     }
-                    alert(selectedLetters);
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+            function ClearWord() {
+                clickedBoxes = [];
+                selectedLetters = "";
+                numSelected = 0;
+
+                var squares = document.getElementsByClassName("grid-item");
+                for (var i = 0; i < 16; i++){
+                    squares[i].style.background = "#d3eafd";
+                }
+            }
         </script>
 
         <script type="text/javascript">
