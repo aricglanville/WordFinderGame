@@ -29,14 +29,14 @@
             <div id="14" class="grid-item">14</div>
             <div id="15" class="grid-item">15</div>
         </div>
-    </center>
+     </center>
 </body>
 
 @section Scripts{
         
         <script>
             var clickedBoxes = [];
-            var selectedLetters = [];
+            var selectedLetters = "";
             var numSelected = 0;
             var squareCheck = [
                 /*0*/[1, 4, 5],
@@ -68,7 +68,7 @@
                     if (numSelected == 0) { 
                         //first box clicked
                         clickedBoxes.push(id);
-                        selectedLetters.push(letter);
+                        selectedLetters += letter;
                         numSelected++;
 
                         $this.css({
@@ -77,17 +77,14 @@
                     }
                     else if (CheckClick(id) == true) {
                         clickedBoxes.push(id);
-                        selectedLetters.push(letter);
+                        selectedLetters += letter;
                         numSelected++;
 
                         $this.css({
                             'background-color': 'green'
                         });
                     }
-
-                    alert(clickedBoxes);
                     alert(selectedLetters);
-
                 });
             });
         </script>
