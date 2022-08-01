@@ -32,7 +32,7 @@
             <div id="15" class="grid-item">15</div>
         </div>
         <form>
-            <input type="button" value="Submit" onclick="SubmitWord()"/> <br/><br/>
+            <input type="button" value="Submit" onclick="SubmitWord(selectedLetters)"/> <br/><br/>
             <input type="button" value="Clear" onclick="ClearWord()"/>
         </form>
      </center>
@@ -157,6 +157,12 @@
 </script>
 
 <script>
+    function SubmitWord(selectedLetters) {
+        connection.invoke("CheckWord", selectedLetters);
+    }
+</script>
+
+<script>
     connection.on("HideGrid", function () {
         document.getElementById("grid").style.visibility = "hidden"; 
     });
@@ -165,6 +171,19 @@
 <script>
     connection.on("ShowGrid", function () {
         document.getElementById("grid").style.visibility = "visible"; 
+    });
+</script>
+
+<script>
+    connection.on("ClearBoard", function () {
+        clickedBoxes = [];
+        selectedLetters = "";
+        numSelected = 0;
+
+        var squares = document.getElementsByClassName("grid-item");
+        for (var i = 0; i < 16; i++) {
+            squares[i].style.background = "#d3eafd";
+        }
     });
 </script>
 }

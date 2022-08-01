@@ -9,11 +9,6 @@ namespace FinalProject.Pages
 {
     public class GamePageModel : PageModel
     {
-
-        public ApiClass apiClass { get; set; }
-
-        public Boolean realWord;
-
         /**************VARIABLES***********/
 
         List<string[]> DieList = new List<string[]>
@@ -47,9 +42,6 @@ namespace FinalProject.Pages
         public void OnGet()
         {
             PopulateBoard();
-
-            apiClass = new ApiClass("asdf");
-            realWord = apiClass.check;
 
         }
 
