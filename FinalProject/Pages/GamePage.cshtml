@@ -3,7 +3,9 @@
 @{
 }
 <head>
+    <script src="/js/signalr/dist/browser/signalr.js"></script>
     <script src="/js/site.js"></script>
+    <script src="/js/chat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js" integrity="sha512-ovjLI1ZcZe6bw+ImQ21r+sv8q/Vwob2kq7tFidK6E1LWfi0T4uobbmpfEU1//a9h9o5Kkt+MnMWf6rWlg0EiMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -11,7 +13,7 @@
 <body onload="FillGrid()">
     <center>
         <h1>GAME PAGE</h1>
-        <div class="grid-container">
+        <div id="grid" class="grid-container">
             <div id="0"  class="grid-item">0 </div>
             <div id="1"  class="grid-item">1 </div>
             <div id="2"  class="grid-item">2 </div>
@@ -37,112 +39,132 @@
 </body>
 
 @section Scripts{
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    connection.start().then(function () {
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+</script>
         
-        <script>
-            var clickedBoxes = [];
-            var selectedLetters = "";
-            var numSelected = 0;
-            const squareCheck = [
-                /*0*/[1, 4, 5],
-                /*1*/[0, 2, 4, 5, 6],
-                /*2*/[1, 3, 5, 6, 7],
-                /*3*/[2, 6, 7],
-                /*4*/[0, 1, 5, 8, 9],
-                /*5*/[0, 1, 2, 4, 6, 8, 9, 10],
-                /*6*/[1, 2, 3, 5, 7, 9, 10, 11],
-                /*7*/[2, 3, 6, 10, 11],
-                /*8*/[4, 5, 9, 12, 13],
-                /*9*/[4, 5, 6, 8, 10, 12, 13, 14],
-                /*10*/[5, 6, 7, 9, 11, 13, 14, 15],
-                /*11*/[6, 7, 10, 14, 15],
-                /*12*/[8, 9, 13],
-                /*13*/[8, 9, 10, 12, 14],
-                /*14*/[9, 10, 11, 13, 15],
-                /*15*/[10, 11, 14]
-            ];    
-        </script>
+<script>
+    var clickedBoxes = [];
+    var selectedLetters = "";
+    var numSelected = 0;
+    const squareCheck = [
+        /*0*/[1, 4, 5],
+        /*1*/[0, 2, 4, 5, 6],
+        /*2*/[1, 3, 5, 6, 7],
+        /*3*/[2, 6, 7],
+        /*4*/[0, 1, 5, 8, 9],
+        /*5*/[0, 1, 2, 4, 6, 8, 9, 10],
+        /*6*/[1, 2, 3, 5, 7, 9, 10, 11],
+        /*7*/[2, 3, 6, 10, 11],
+        /*8*/[4, 5, 9, 12, 13],
+        /*9*/[4, 5, 6, 8, 10, 12, 13, 14],
+        /*10*/[5, 6, 7, 9, 11, 13, 14, 15],
+        /*11*/[6, 7, 10, 14, 15],
+        /*12*/[8, 9, 13],
+        /*13*/[8, 9, 10, 12, 14],
+        /*14*/[9, 10, 11, 13, 15],
+        /*15*/[10, 11, 14]
+    ];    
+</script>
 
-        <script type="text/javascript">
-            $(function () {
-                $(document).on('click', '.grid-item', function() {
-                    var $this = $(this);
-                    var id = $(this).attr('id');
-                    var letter = $this.text();
+<script type="text/javascript">
+    $(function () {
+        $(document).on('click', '.grid-item', function() {
+            var $this = $(this);
+            var id = $(this).attr('id');
+            var letter = $this.text();
 
-                    if (numSelected == 0) { 
-                        //first box clicked
-                        clickedBoxes.push(id);
-                        selectedLetters += letter;
-                        numSelected++;
+            if (numSelected == 0) { 
+                //first box clicked
+                clickedBoxes.push(id);
+                selectedLetters += letter;
+                numSelected++;
 
-                        $this.css({
-                            'background-color': 'green'
-                        });
-                    }
-                    else if (CheckClick(id) == true) {
-                        clickedBoxes.push(id);
-                        selectedLetters += letter;
-                        numSelected++;
-
-                        $this.css({
-                            'background-color': 'green'
-                        });
-                    }
+                $this.css({
+                    'background-color': 'green'
                 });
-            });
-        </script>
-
-        <script type="text/javascript">
-            function ClearWord() {
-                clickedBoxes = [];
-                selectedLetters = "";
-                numSelected = 0;
-
-                var squares = document.getElementsByClassName("grid-item");
-                for (var i = 0; i < 16; i++){
-                    squares[i].style.background = "#d3eafd";
-                }
             }
-        </script>
+            else if (CheckClick(id) == true) {
+                clickedBoxes.push(id);
+                selectedLetters += letter;
+                numSelected++;
 
-        <script type="text/javascript">
+                $this.css({
+                    'background-color': 'green'
+                });
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function ClearWord() {
+        clickedBoxes = [];
+        selectedLetters = "";
+        numSelected = 0;
+
+        var squares = document.getElementsByClassName("grid-item");
+        for (var i = 0; i < 16; i++){
+            squares[i].style.background = "#d3eafd";
+        }
+    }
+</script>
+
+<script type="text/javascript">
             
-            function CheckClick(id) {
+    function CheckClick(id) {
                 
-                var prevSelected = parseInt(clickedBoxes[numSelected - 1]);
+        var prevSelected = parseInt(clickedBoxes[numSelected - 1]);
 
-                //first check to see if already clicked
-                if (clickedBoxes.includes(id)) {
-                    return false;
-                }
+        //first check to see if already clicked
+        if (clickedBoxes.includes(id)) {
+            return false;
+        }
 
-                //next check to see if click is touching the last square (use ids)
-                if (squareCheck[id].includes(prevSelected)){
-                    return true;
-                }
-                else {
-                    //else fail
-                    return false;
-                }
-            }
-        </script>
+        //next check to see if click is touching the last square (use ids)
+        if (squareCheck[id].includes(prevSelected)){
+            return true;
+        }
+        else {
+            //else fail
+            return false;
+        }
+    }
+</script>
 
 
-        <script type="text/javascript">
-            function FillGrid() {
-                var board = [];
+<script type="text/javascript">
+    function FillGrid() {
+        var board = [];
 
-                @foreach (var d in Model.boggleBoard)
-                {
-                    @:board.push("@d");
+        @foreach (var d in Model.boggleBoard)
+        {
+            @:board.push("@d");
 
-                }
+        }
 
-                var squares = document.getElementsByClassName("grid-item");
+        var squares = document.getElementsByClassName("grid-item");
 
-                for (var i = 0; i < board.length; i++){
-                    squares[i].innerHTML = board[i];
-                }
-            }
-        </script>
+        for (var i = 0; i < board.length; i++){
+            squares[i].innerHTML = board[i];
+        }
+    }
+</script>
+
+<script>
+    connection.on("HideGrid", function () {
+        document.getElementById("grid").style.visibility = "hidden"; 
+    });
+</script>
+
+<script>
+    connection.on("ShowGrid", function () {
+        document.getElementById("grid").style.visibility = "visible"; 
+    });
+</script>
 }
