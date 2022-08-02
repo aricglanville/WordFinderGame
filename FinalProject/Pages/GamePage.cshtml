@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model FinalProject.Pages.GamePageModel
 @{
 }
@@ -13,7 +13,9 @@
 <body onload="FillGrid()">
     <center>
         <h1>GAME PAGE</h1>
+        <h1>BOGGLE!</h1>
         <h4>Timer: <a id="timer_hold"></a></h4>
+
         <div id="grid" class="grid-container">
             <div id="0"  class="grid-item">0 </div>
             <div id="1"  class="grid-item">1 </div>
@@ -32,6 +34,9 @@
             <div id="14" class="grid-item">14</div>
             <div id="15" class="grid-item">15</div>
         </div>
+        <br/>
+        <div id="feedback"></div>
+        <br/>
         <form>
             <input type="button" value="Submit" onclick="SubmitWord(selectedLetters)"/> <br/><br/>
             <input type="button" value="Clear" onclick="ClearWord()"/>
@@ -51,8 +56,11 @@
         
 <script>
     var clickedBoxes = [];
+    var usedWords = [];
     var selectedLetters = "";
     var numSelected = 0;
+    var playerScore = 0
+    var feedbackElement = document.getElementById("feedback");
     const squareCheck = [
         /*0*/[1, 4, 5],
         /*1*/[0, 2, 4, 5, 6],
@@ -70,6 +78,12 @@
         /*13*/[8, 9, 10, 12, 14],
         /*14*/[9, 10, 11, 13, 15],
         /*15*/[10, 11, 14]
+       /*10*/[5, 6, 7, 9, 11, 13, 14, 15],
+       /*11*/[6, 7, 10, 14, 15],
+       /*12*/[8, 9, 13],
+       /*13*/[8, 9, 10, 12, 14],
+       /*14*/[9, 10, 11, 13, 15],
+       /*15*/[10, 11, 14]
     ];    
 </script>
 
@@ -159,8 +173,34 @@
 </script>
 
 <script>
+    connection.on("NotAWord", function() {
+        
+        feedbackElement.style.color = "red";
+        feedbackElement.innerHTML = "That's Not A Word!";
+        ClearWord();
+    });
+</script>
+
+<script>
+    connection.on("Correct", function() {
+        
+        feedbackElement.style.color = "green";
+        feedbackElement.innerHTML = "Correct!";
+        usedWords.push(selectedLetters);
+        ClearWord();
+    });
+</script>
+
+<script>
     function SubmitWord(selectedLetters) {
-        connection.invoke("CheckWord", selectedLetters);
+        if (usedWords.includes(selectedLetters)) {
+            feedbackElement.style.color = "red";
+            feedbackElement.innerHTML = "You Already Picked That Word!";
+            ClearWord();
+        }
+        else{
+            connection.invoke("CheckWord", selectedLetters);
+        }
     }
 </script>
 
@@ -179,6 +219,7 @@
     });
 </script>
 
+<<<<<<< Updated upstream
 <script>
     connection.on("ClearBoard", function () {
         clickedBoxes = [];
@@ -231,4 +272,5 @@ var x = setInterval(function() {
 
 }
 </script>
+=======
 }
