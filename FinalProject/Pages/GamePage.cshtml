@@ -195,6 +195,8 @@
 <script>
 var limit = 1; // mins 
 
+var timExp = false;
+
 function timeSet() {
   // Set the date we're counting down to
     var today = new Date();
@@ -223,6 +225,7 @@ var x = setInterval(function() {
         if (distance < 0) {
             clearInterval(x);
             document.getElementById("timer_hold").textContent = "EXPIRED";
+            timExp = true;
         }
     }, 1000);
 
