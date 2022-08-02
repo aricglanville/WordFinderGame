@@ -5,6 +5,8 @@ namespace FinalProject.Hubs
 {
     public class ChatHub : Hub
     {
+        public static Boolean enoughPlayers = false;
+        public static string[] SecondBoard = new string[16];
 
         public ApiClass apiClass { get; set; }
 
@@ -24,7 +26,7 @@ namespace FinalProject.Hubs
             await base.OnConnectedAsync();
 
             if (count >= 2)
-            {                
+            {   
                 await Clients.All.SendAsync("ShowGrid");                
             }
             else

@@ -2,14 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 
-using FinalProject.Services;
 
+using FinalProject.Services;
+using FinalProject.Hubs;
 
 namespace FinalProject.Pages
 {
     public class GamePageModel : PageModel
     {
         /**************VARIABLES***********/
+
+        public ChatHub chatHub = new ChatHub();
 
         List<string[]> DieList = new List<string[]>
         {
@@ -31,18 +34,22 @@ namespace FinalProject.Pages
             new string[] { "H", "L", "N", "N", "R", "Z" },
         };
 
-        List<string> ChosenWords = new List<string>();//keep track of words the user has already chosen
-        
         public string[] boggleBoard = new string[16];
-
-
 
 
         /*******************************Functions****************************/
         public void OnGet()
         {
-            PopulateBoard();
-
+            if(ChatHub.enoughPlayers == false)
+            {
+                PopulateBoard();
+                ChatHub.enoughPlayers = true;
+                ChatHub.SecondBoard = boggleBoard;
+            }
+            else
+            {
+                boggleBoard = ChatHub.SecondBoard;
+            }
         }
 
         //function to loop through the board and load a rolled die into each slot
