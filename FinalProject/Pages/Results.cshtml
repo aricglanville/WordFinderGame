@@ -1,0 +1,57 @@
+﻿@page
+@model FinalProject.Pages.ResultsModel
+@{
+}
+<html>
+<head>
+    <script src="/js/signalr/dist/browser/signalr.js"></script>
+</head>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+    <center>
+        <div id="table">
+            <table>
+                <tr>
+                    <th id="user1Score">User 1 Score: </th>
+                    <th id="user2Score">User 2 Score: </th>
+                </tr>
+                <tr>
+                    <td id="user1Words">User 1 Words: </td>
+                    <td id="user2Words">User 2 Words: </td>
+                </tr>
+            </table>
+        </div>
+    </center>
+</body>
+</html>
+
+@section Scripts{
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        connection.start().then(function () {
+            connection.invoke("GameOver");
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+
+    <script>
+        connection.on("DisplayScores", function (user1Score, user2Score, user1Words, user2Words) {
+            document.getElementById("user1Score").innerHTML = "User 1 Score: " + user1Score;
+            document.getElementById("user2Score").innerHTML = "User 2 Score: " + user2Score;
+            document.getElementById("user1Words").innerHTML = "User 1 Words: " + user1Words.join(", ");
+            document.getElementById("user2Words").innerHTML = "User 2 Words: " + user2Words.join(", ");
+        @*document.getElementById("grid").style.display = "none";*@
+        @*for (i = 0; i < user1Words.length; i++) {
+            alert(user1Words[i]);
+        }*@
+    });
+    </script>
+}
