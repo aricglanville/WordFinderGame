@@ -184,7 +184,12 @@
 
 <script>
     function SubmitWord(selectedLetters) {
-        if (usedWords.includes(selectedLetters)) {
+        
+        if (selectedLetters.length < 3) {
+            feedbackElement.style.color = "red";
+            feedbackElement.innerHTML = "Word must be at least 3 letters!";
+        }
+        else if (usedWords.includes(selectedLetters)) {
             feedbackElement.style.color = "red";
             feedbackElement.innerHTML = "You Already Picked That Word!";
             ClearWord();
