@@ -7,7 +7,7 @@ namespace FinalProject.Hubs
     {
         public static Boolean enoughPlayers = false;
         public static string[] SecondBoard = new string[16];
-
+                        
         public ApiClass apiClass { get; set; }
 
         public Boolean realWord;
@@ -41,9 +41,17 @@ namespace FinalProject.Hubs
 
             apiClass = new ApiClass(word);
             realWord = apiClass.check;
-            if(realWord == true)
+
+            if (realWord == true)
             {
-                await Clients.Client(currentConnection).SendAsync("ClearBoard");
+                //TODO: add scoring stuff here?
+
+                await Clients.Client(currentConnection).SendAsync("Correct");
+            }
+            else
+            {
+                //notify user
+                await Clients.Client(currentConnection).SendAsync("NotAWord");
             }
         }
     }

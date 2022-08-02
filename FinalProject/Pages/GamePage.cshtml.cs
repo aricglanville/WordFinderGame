@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
-
-
 using FinalProject.Services;
 using FinalProject.Hubs;
 
@@ -35,7 +33,6 @@ namespace FinalProject.Pages
         };
 
         public string[] boggleBoard = new string[16];
-
 
         /*******************************Functions****************************/
         public void OnGet()
