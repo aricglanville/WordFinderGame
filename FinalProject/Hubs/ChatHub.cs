@@ -53,6 +53,12 @@ namespace FinalProject.Hubs
             }
         }
 
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            count--;
+            await base.OnDisconnectedAsync(exception);
+        }
+
         public async Task CheckWord(string word)
         {
             var currentConnection = Context.ConnectionId;
