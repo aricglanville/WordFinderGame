@@ -18,6 +18,10 @@
     <div class="container-fluid">
         <center>
             <h1>@Model.playerNum BOGGLE!</h1>
+            <div class="row">
+                <div class="col" id="player1score"> Player 1 Score: </div>
+                <div class="col" id="player2score"> Player 2 Score: </div>
+            </div>
             <h4>Timer: <a id="timer_hold"></a></h4>
 
             <div class="row">
@@ -179,13 +183,11 @@
         for (var i = 0; i < board.length; i++){
             squares[i].innerHTML = board[i];
         }
-
      }
 </script>
 
 <script>
-    connection.on("NotAWord", function() {
-        
+    connection.on("NotAWord", function() {        
         feedbackElement.style.color = "red";
         feedbackElement.innerHTML = "That's Not A Word!";
         ClearWord();
@@ -193,9 +195,11 @@
 </script>
 
 <script>
-    connection.on("Correct", function() {
+    connection.on("Correct", function(player1score, player2score) {
         feedbackElement.style.color = "green";
         feedbackElement.innerHTML = "Correct!";
+        document.getElementById("player1score").innerHTML = "Player 1 score: " + player1score;
+        document.getElementById("player2score").innerHTML = "Player 2 score: " + player2score;
         usedWords.push(selectedLetters);
         ClearWord();
     });
@@ -238,6 +242,12 @@
     connection.on("GameFull", function () {
         document.getElementById("grid").style.visibility = "hidden";
         document.getElementById("timer_hold").textContent = "Game full - Sorry!";
+    });
+</script>
+
+<script>
+    connection.on("PlayerDisconnected", function () {
+         = 
     });
 </script>
 
@@ -292,7 +302,6 @@ var x = setInterval(function() {
             location.href = '/Results';
         }
     }, 1000);
-
 }
 </script>
 }

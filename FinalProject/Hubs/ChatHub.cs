@@ -55,6 +55,7 @@ namespace FinalProject.Hubs
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
+            await Clients.All.SendAsync("PlayerDisconnected");
             await base.OnDisconnectedAsync(exception);
         }
 
@@ -96,7 +97,7 @@ namespace FinalProject.Hubs
                 {
                     AddScoreAndWord(currentConnection, word, 15);
                 }
-                await Clients.Client(currentConnection).SendAsync("Correct");
+                await Clients.Client(currentConnection).SendAsync("Correct", user1Score, user2Score);
             }
             else
             {
