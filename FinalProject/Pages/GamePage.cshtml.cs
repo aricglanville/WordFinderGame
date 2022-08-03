@@ -33,22 +33,25 @@ namespace FinalProject.Pages
         };
 
         public string[] boggleBoard = new string[16];
+        public static int count = 0;
         public string playerNum = "";
 
         /*******************************Functions****************************/
         public void OnGet()
         {
+            count++;
+
             if(ChatHub.enoughPlayers == false)
             {
                 PopulateBoard();
                 ChatHub.enoughPlayers = true;
                 ChatHub.SecondBoard = boggleBoard;
-                playerNum = "Player 1";
+                playerNum = $"Player {count}";
             }
             else
             {
                 boggleBoard = ChatHub.SecondBoard;
-                playerNum = "Player 2";
+                playerNum = $"Player {count}";
             }
         }
 

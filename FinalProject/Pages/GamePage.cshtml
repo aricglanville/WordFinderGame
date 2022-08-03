@@ -235,6 +235,13 @@
 </script>
 
 <script>
+    connection.on("GameFull", function () {
+        document.getElementById("grid").style.visibility = "hidden";
+        document.getElementById("timer_hold").textContent = "Game full - Sorry!";
+    });
+</script>
+
+<script>
     connection.on("ClearBoard", function () {
         clickedBoxes = [];
         selectedLetters = "";

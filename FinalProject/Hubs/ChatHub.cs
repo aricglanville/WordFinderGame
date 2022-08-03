@@ -49,13 +49,12 @@ namespace FinalProject.Hubs
             }
             else
             {
-                await Clients.Client(Context.ConnectionId).SendAsync("GameFull");
+                await Clients.Caller.SendAsync("GameFull");
             }
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            count--;
             await base.OnDisconnectedAsync(exception);
         }
 
