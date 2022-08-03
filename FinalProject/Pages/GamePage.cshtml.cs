@@ -33,6 +33,7 @@ namespace FinalProject.Pages
         };
 
         public string[] boggleBoard = new string[16];
+        public string playerNum = "";
 
         /*******************************Functions****************************/
         public void OnGet()
@@ -42,10 +43,12 @@ namespace FinalProject.Pages
                 PopulateBoard();
                 ChatHub.enoughPlayers = true;
                 ChatHub.SecondBoard = boggleBoard;
+                playerNum = "Player 1";
             }
             else
             {
                 boggleBoard = ChatHub.SecondBoard;
+                playerNum = "Player 2";
             }
         }
 

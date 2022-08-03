@@ -13,20 +13,23 @@
     }
 </style>
 
-<body>
+<body> 
     <center>
         <div id="table">
             <table>
                 <tr>
-                    <th id="user1Score">User 1 Score: </th>
-                    <th id="user2Score">User 2 Score: </th>
+                    <th id="user1Score">Player 1 Score: </th>
+                    <td id="user1Words">Player 1 Words: </td>
                 </tr>
                 <tr>
-                    <td id="user1Words">User 1 Words: </td>
-                    <td id="user2Words">User 2 Words: </td>
+                    <th id="user2Score">Player 2 Score: </th>
+                    <td id="user2Words">Player 2 Words: </td>
                 </tr>
             </table>
         </div>
+        </br>
+        </br>
+        <h1 id="winner"></h1>
     </center>
 </body>
 </html>
@@ -44,10 +47,17 @@
 
     <script>
         connection.on("DisplayScores", function (user1Score, user2Score, user1Words, user2Words) {
-            document.getElementById("user1Score").innerHTML = "User 1 Score: " + user1Score;
-            document.getElementById("user2Score").innerHTML = "User 2 Score: " + user2Score;
-            document.getElementById("user1Words").innerHTML = "User 1 Words: " + user1Words.join(", ");
-            document.getElementById("user2Words").innerHTML = "User 2 Words: " + user2Words.join(", ");
+            document.getElementById("user1Score").innerHTML = "Player 1 Score: " + user1Score;
+            document.getElementById("user2Score").innerHTML = "Player 2 Score: " + user2Score;
+            document.getElementById("user1Words").innerHTML = "Player 1 Words: " + user1Words.join(", ");
+            document.getElementById("user2Words").innerHTML = "Player 2 Words: " + user2Words.join(", ");
+
+            if (user1Score > user2Score) {
+                document.getElementById("winner").innerHTML = "Player 1 is the Winner!";
+            }
+            else {
+                document.getElementById("winner").innerHTML = "Player 2 is the Winner!";
+            }
         @*document.getElementById("grid").style.display = "none";*@
         @*for (i = 0; i < user1Words.length; i++) {
             alert(user1Words[i]);

@@ -12,7 +12,7 @@
 
 <body onload="FillGrid()">
     <center>
-        <h1>BOGGLE!</h1>
+        <h1>@Model.playerNum BOGGLE!</h1>
         <h4>Timer: <a id="timer_hold"></a></h4>
         <div id="grid" class="grid-container">
             <div id="0"  class="grid-item">0 </div>
@@ -39,6 +39,8 @@
             <input type="button" value="Submit" onclick="SubmitWord(selectedLetters)"/> <br/><br/>
             <input type="button" value="Clear" onclick="ClearWord()"/>
         </form>
+        <br/>
+        <br/>
      </center>
 </body>
 
@@ -149,7 +151,7 @@
     
     function FillGrid() {
         var board = [];
-
+ 
         @foreach (var d in Model.boggleBoard)
         {
             @:board.push("@d");
@@ -161,7 +163,8 @@
         for (var i = 0; i < board.length; i++){
             squares[i].innerHTML = board[i];
         }
-    }
+
+     }
 </script>
 
 <script>
@@ -228,6 +231,7 @@
     });
 </script>
 
+<!-----------TIMER STUFF -------------------->
 <script>
 var limit = 1; // mins 
 
