@@ -28,7 +28,7 @@ namespace FinalProject.Pages
             new string[] { "E", "H", "R", "T", "V", "W" },
             new string[] { "E", "I", "O", "S", "S", "T" },
             new string[] { "E", "L", "R", "T", "T", "Y" },
-            new string[] { "H", "I", "M", "N", "U", "Qu"},
+            new string[] { "H", "I", "M", "N", "U", "QU"},
             new string[] { "H", "L", "N", "N", "R", "Z" },
         };
 
