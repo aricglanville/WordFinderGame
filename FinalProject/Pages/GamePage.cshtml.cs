@@ -69,7 +69,7 @@ namespace FinalProject.Pages
 
         public string RollDie(int dice)
         {
-            string letter = "";
+            string letter;
             Random rnd = new Random();
             int die = rnd.Next(dice);
             int face = rnd.Next(5);
