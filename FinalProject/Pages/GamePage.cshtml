@@ -19,8 +19,8 @@
         <center>
             <h1>@Model.playerNum BOGGLE!</h1>
             <div class="row">
-                <div class="col" id="player1score"> Player 1 Score: </div>
-                <div class="col" id="player2score"> Player 2 Score: </div>
+                <div class="col" id="player1score"> Player 1 Score: 0</div>
+                <div class="col" id="player2score"> Player 2 Score: 0</div>
             </div>
             <h4>Timer: <a id="timer_hold"></a></h4>
 
@@ -198,10 +198,15 @@
     connection.on("Correct", function(player1score, player2score) {
         feedbackElement.style.color = "green";
         feedbackElement.innerHTML = "Correct!";
-        document.getElementById("player1score").innerHTML = "Player 1 score: " + player1score;
-        document.getElementById("player2score").innerHTML = "Player 2 score: " + player2score;
         usedWords.push(selectedLetters);
         ClearWord();
+    });
+</script>
+
+<script>
+    connection.on("UpdateScores", function(player1score, player2score) {
+        document.getElementById("player1score").innerHTML = "Player 1 score: " + player1score;
+        document.getElementById("player2score").innerHTML = "Player 2 score: " + player2score;
     });
 </script>
 

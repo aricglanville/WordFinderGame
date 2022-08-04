@@ -33,7 +33,7 @@ namespace FinalProject.Pages
         };
 
         public string[] boggleBoard = new string[16];
-        public static int count = 0;
+        public static int count = ChatHub.count;
         public string playerNum = "";
 
         /*******************************Functions****************************/
