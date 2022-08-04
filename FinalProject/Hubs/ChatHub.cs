@@ -111,6 +111,11 @@ namespace FinalProject.Hubs
         public async Task GameOver()
         {
             await Clients.All.SendAsync("DisplayScores", user1Score, user2Score, user1Words, user2Words);
+            count = 0;
+            user1Score = 0;
+            user2Score = 0;
+            user1Words.Clear();
+            user2Words.Clear();
         }
 
         private void AddScoreAndWord(string connectionID, string word, int score)

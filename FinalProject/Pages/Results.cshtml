@@ -31,6 +31,8 @@
         </br>
         <h1 id="winner"></h1>
     </center>
+
+    <a  asp-area="" asp-page="/Index">Homepage(reset)</a>
 </body>
 </html>
 
@@ -63,5 +65,10 @@
             alert(user1Words[i]);
         }*@
     });
+
+
+function reset() {
+    document.location = document.location.host;
+}
     </script>
 }

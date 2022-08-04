@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FinalProject.Hubs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FinalProject.Pages
@@ -7,6 +8,8 @@ namespace FinalProject.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        private ChatHub ch = new ChatHub();
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -14,7 +17,7 @@ namespace FinalProject.Pages
 
         public void OnGet()
         {
-
+          
         }
     }
 }
