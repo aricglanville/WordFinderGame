@@ -30,9 +30,10 @@
         </br>
         </br>
         <h1 id="winner"></h1>
+        </br></br></br></br></br>
+        <input type="button" value="New Game" onclick="Reset()" />
     </center>
-
-    <a  asp-area="" asp-page="/Index">Homepage(reset)</a>
+    @*<a  asp-area="" asp-page="/Index">Homepage(reset)</a>*@
 </body>
 </html>
 
@@ -65,10 +66,20 @@
             alert(user1Words[i]);
         }*@
     });
+    </script>
 
+    <script>
+        function Reset() {
+            connection.invoke("ResetGame");
+            document.location = document.location.host;
+        }
+    </script>
 
-function reset() {
-    document.location = document.location.host;
-}
+    <script>
+        connection.on("NewGame", function() {
+
+            location.href = '/Index';
+
+        })
     </script>
 }

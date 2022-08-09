@@ -55,7 +55,6 @@ namespace FinalProject.Hubs
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            count--;
             await Clients.All.SendAsync("PlayerDisconnected");
             await base.OnDisconnectedAsync(exception);
         }
@@ -111,11 +110,19 @@ namespace FinalProject.Hubs
         public async Task GameOver()
         {
             await Clients.All.SendAsync("DisplayScores", user1Score, user2Score, user1Words, user2Words);
+        }
+
+        public async Task ResetGame()
+        {
             count = 0;
             user1Score = 0;
             user2Score = 0;
             user1Words.Clear();
             user2Words.Clear();
+            Array.Clear(SecondBoard);
+            enoughPlayers = false;
+
+            await Clients.All.SendAsync("NewGame");
         }
 
         private void AddScoreAndWord(string connectionID, string word, int score)
