@@ -121,6 +121,7 @@ namespace FinalProject.Hubs
             user2Words.Clear();
             Array.Clear(SecondBoard);
             enoughPlayers = false;
+            connectionIDS.Clear();
 
             await Clients.All.SendAsync("NewGame");
         }
